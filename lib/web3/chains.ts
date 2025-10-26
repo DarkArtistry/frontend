@@ -5,26 +5,27 @@ import essentialDappsChainsConfig from 'configs/essential-dapps-chains';
 import multichainConfig from 'configs/multichain';
 
 const getChainInfo = (config: typeof appConfig = appConfig, contracts?: Chain['contracts']): Chain => {
+  // Force ROAX configuration to override any incorrect environment values
   return {
-    id: Number(config.chain.id),
-    name: config.chain.name ?? '',
+    id: 135, // ROAX chain ID - forced
+    name: 'ROAX Tricca TestNet',
     nativeCurrency: {
-      decimals: config.chain.currency.decimals,
-      name: config.chain.currency.name ?? '',
-      symbol: config.chain.currency.symbol ?? '',
+      decimals: 18,
+      name: 'PLASMA',
+      symbol: 'PLASMA',
     },
     rpcUrls: {
       'default': {
-        http: config.chain.rpcUrls,
+        http: ['https://devrpc.roax.network'],
       },
     },
     blockExplorers: {
       'default': {
         name: 'Blockscout',
-        url: config.app.baseUrl,
+        url: config.app.baseUrl || 'http://localhost:3000',
       },
     },
-    testnet: config.chain.isTestnet,
+    testnet: true,
     contracts,
   };
 };

@@ -8,6 +8,7 @@ import DeFiDropdown from './DeFiDropdown';
 import NetworkMenu from './NetworkMenu';
 import Settings from './settings/Settings';
 import TopBarStats from './TopBarStats';
+import WalletConnect from './WalletConnect';
 
 const TopBar = () => {
   return (
@@ -29,6 +30,8 @@ const TopBar = () => {
               <Separator mr={ 3 } ml={{ base: 2, sm: 3 }} height={ 4 } orientation="vertical"/>
             </>
           ) }
+          <WalletConnect/>
+          <Separator mx={ 2 } height={ 4 } orientation="vertical"/>
           <Settings/>
           { Boolean(config.UI.featuredNetworks.items) && (
             <>

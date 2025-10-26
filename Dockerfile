@@ -16,8 +16,9 @@ COPY configs/app ./configs/app
 COPY toolkit/theme ./toolkit/theme
 COPY toolkit/utils ./toolkit/utils
 COPY toolkit/components/forms/validators/url.ts ./toolkit/components/forms/validators/url.ts
+COPY yarn-install.sh ./
 RUN apk add git
-RUN yarn --frozen-lockfile --network-timeout 100000
+RUN chmod +x yarn-install.sh && ./yarn-install.sh
 
 
 ### FEATURE REPORTER
@@ -78,7 +79,7 @@ ENV NEXT_PUBLIC_GIT_TAG=$GIT_TAG
 ARG NEXT_OPEN_TELEMETRY_ENABLED
 ENV NEXT_OPEN_TELEMETRY_ENABLED=$NEXT_OPEN_TELEMETRY_ENABLED
 
-ENV NODE_ENV production
+ENV NODE_ENV="production"
 
 ### APP
 # Copy dependencies and source code
@@ -95,11 +96,41 @@ RUN set -a && \
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Accept build arguments for NEXT_PUBLIC_ variables
+ARG NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE
+ENV NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE=$NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE
+
+ARG NEXT_PUBLIC_CONTRACT_EDITOR_ENABLED
+ENV NEXT_PUBLIC_CONTRACT_EDITOR_ENABLED=$NEXT_PUBLIC_CONTRACT_EDITOR_ENABLED
+
+# WalletConnect and blockchain interaction variables (with defaults from .env files)
+ARG NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=859aacfad606ba81a2c8ffc1e140de29
+ENV NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=$NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
+
+ARG NEXT_PUBLIC_NETWORK_ID=135
+ENV NEXT_PUBLIC_NETWORK_ID=$NEXT_PUBLIC_NETWORK_ID
+
+ARG NEXT_PUBLIC_NETWORK_NAME=ROAX
+ENV NEXT_PUBLIC_NETWORK_NAME=$NEXT_PUBLIC_NETWORK_NAME
+
+ARG NEXT_PUBLIC_NETWORK_CURRENCY_NAME=PLASMA
+ENV NEXT_PUBLIC_NETWORK_CURRENCY_NAME=$NEXT_PUBLIC_NETWORK_CURRENCY_NAME
+
+ARG NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=PLASMA
+ENV NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=$NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL
+
+ARG NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS=18
+ENV NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS=$NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS
+
+ARG NEXT_PUBLIC_NETWORK_RPC_URL=https://devrpc.roax.network
+ENV NEXT_PUBLIC_NETWORK_RPC_URL=$NEXT_PUBLIC_NETWORK_RPC_URL
 
 # Build app for production
 ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN yarn build
+COPY build-wrapper.sh ./
+RUN chmod +x build-wrapper.sh && ./build-wrapper.sh
 
 
 ### FEATURE REPORTER
@@ -161,6 +192,7 @@ RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/nextjs ./nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
@@ -199,10 +231,10 @@ ARG ENVS_PRESET
 ENV ENVS_PRESET=$ENVS_PRESET
 COPY ./configs/envs ./configs/envs
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Copy Next.js build output and dependencies (non-standalone mode)
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
 ENTRYPOINT ["./entrypoint.sh"]
 
@@ -210,6 +242,6 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT="3000"
 
-CMD ["node", "server.js"]
+CMD ["yarn", "start"]

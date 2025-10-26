@@ -27,6 +27,7 @@ import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer'
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
 import Layout from 'ui/shared/layout/Layout';
 import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
+import { BlockscoutSDKProvider } from 'lib/blockscout-sdk/providers';
 
 import 'lib/setLocale';
 // import 'focus-visible/dist/focus-visible';
@@ -82,8 +83,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           Container={ AppErrorGlobalContainer }
         >
           <Web3ModalProvider>
-            <AppContextProvider pageProps={ pageProps }>
-              <QueryClientProvider client={ queryClient }>
+            <BlockscoutSDKProvider>
+              <AppContextProvider pageProps={ pageProps }>
+                <QueryClientProvider client={ queryClient }>
                 <GrowthBookProvider growthbook={ growthBook }>
                   <SocketProvider url={ socketUrl }>
                     <RewardsContextProvider>
@@ -97,8 +99,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 </GrowthBookProvider>
                 <ReactQueryDevtools buttonPosition="bottom-left" position="left"/>
                 <GoogleAnalytics/>
-              </QueryClientProvider>
-            </AppContextProvider>
+                </QueryClientProvider>
+              </AppContextProvider>
+            </BlockscoutSDKProvider>
           </Web3ModalProvider>
         </AppErrorBoundary>
       </RollbarProvider>

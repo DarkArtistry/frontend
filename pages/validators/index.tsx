@@ -21,6 +21,10 @@ const Validators = dynamic(() => {
     return import('ui/pages/ValidatorsZilliqa');
   }
 
+  if (validatorsFeature.isEnabled && validatorsFeature.chainType === 'beacon') {
+    return import('ui/pages/Validators');
+  }
+
   throw new Error('Validators feature is not enabled.');
 }, { ssr: false });
 

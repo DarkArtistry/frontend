@@ -14,7 +14,11 @@ const ValidatorDetails = dynamic(() => {
     return import('ui/pages/ValidatorZilliqa');
   }
 
-  throw new Error('Validators feature is not enabled.');
+  if (validatorsFeature.isEnabled && validatorsFeature.chainType === 'beacon') {
+    return import('ui/pages/ValidatorBeacon');
+  }
+
+  throw new Error('Validator details not supported for this chain type');
 }, { ssr: false });
 
 const Page: NextPage<Props> = (props) => {
@@ -27,4 +31,4 @@ const Page: NextPage<Props> = (props) => {
 
 export default Page;
 
-export { validatorDetails as getServerSideProps } from 'nextjs/getServerSideProps/main';
+export { validators as getServerSideProps } from 'nextjs/getServerSideProps/main';

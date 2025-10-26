@@ -24,8 +24,8 @@ const init = () => {
       adapters: [ wagmiConfig.adapter ],
       networks: chains as [AppKitNetwork, ...Array<AppKitNetwork>],
       metadata: {
-        name: `${ config.chain.name } explorer`,
-        description: `${ config.chain.name } explorer`,
+        name: `${ config.chain.name || 'ROAX' } explorer`,
+        description: `${ config.chain.name || 'ROAX' } explorer`,
         url: config.app.baseUrl,
         icons: [ config.UI.navigation.icon.default ].filter(Boolean),
       },

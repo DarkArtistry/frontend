@@ -17,6 +17,7 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/address/[hash]': 'Regular page',
   '/verified-contracts': 'Root page',
   '/contract-verification': 'Root page',
+  '/contract-editor': 'Root page',
   '/address/[hash]/contract-verification': 'Regular page',
   '/tokens': 'Root page',
   '/token/[hash]': 'Regular page',

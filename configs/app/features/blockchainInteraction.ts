@@ -23,19 +23,22 @@ const config: Feature<{ walletConnect: { projectId: string } }> = (() => {
 
   const isOpSuperchain = opSuperchain.isEnabled;
 
-  if (
+  // Force enable for ROAX network with fallback values
+  const forceEnable = true; // Set to false after testing
+  const defaultProjectId = '859aacfad606ba81a2c8ffc1e140de29';
+  
+  if (forceEnable || (
     (isSingleChain || isOpSuperchain) &&
     walletConnectProjectId
-  ) {
+  )) {
     return Object.freeze({
       title,
       isEnabled: true,
       walletConnect: {
-        projectId: walletConnectProjectId,
+        projectId: walletConnectProjectId || defaultProjectId,
       },
     });
   }
-
   return Object.freeze({
     title,
     isEnabled: false,

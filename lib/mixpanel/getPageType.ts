@@ -15,6 +15,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/address/[hash]': 'Address details',
   '/verified-contracts': 'Verified contracts',
   '/contract-verification': 'Contract verification',
+  '/contract-editor': 'Contract editor',
   '/address/[hash]/contract-verification': 'Contract verification for address',
   '/tokens': 'Tokens',
   '/token/[hash]': 'Token details',

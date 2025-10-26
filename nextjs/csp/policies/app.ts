@@ -45,11 +45,18 @@ export function app(): CspDev.DirectiveDescriptor {
       ...config.chain.rpcUrls,
       'https://infragrid.v.network', // RPC providers
 
-      // github (spec for api-docs page)
+      // github (spec for api-docs page, OpenZeppelin contracts)
       'raw.githubusercontent.com',
 
       // github api (used for Stylus contract verification)
       'api.github.com',
+      
+      // Monaco editor source maps
+      'cdn.jsdelivr.net',
+      
+      // Solidity compiler
+      'binaries.soliditylang.org',
+      'unpkg.com',
     ].filter(Boolean),
 
     'script-src': [
@@ -58,13 +65,18 @@ export function app(): CspDev.DirectiveDescriptor {
 
       // next.js generates and rebuilds source maps in dev using eval()
       // https://github.com/vercel/next.js/issues/14221#issuecomment-657258278
-      config.app.isDev ? KEY_WORDS.UNSAFE_EVAL : '',
+      // Solidity compiler also requires unsafe-eval
+      KEY_WORDS.UNSAFE_EVAL,
 
       // hash of ColorModeScript: system + dark
       '\'sha256-yYJq8IP5/WhJj6zxyTmujEqBFs/MufRufp2QKJFU76M=\'',
 
       // CapybaraRunner
       '\'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=\'',
+      
+      // Solidity compiler scripts
+      'binaries.soliditylang.org',
+      'unpkg.com',
     ],
 
     'style-src': [

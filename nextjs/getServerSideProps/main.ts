@@ -10,6 +10,7 @@ export const marketplace = factory([ guards.marketplace ]);
 export const marketplaceEssentialDapp = factory([ guards.marketplaceEssentialDapp ]);
 export const apiDocs = factory([ guards.apiDocs ]);
 export const csvExport = factory([ guards.csvExport ]);
+export const contractEditor = factory([ guards.contractEditor ]);
 export const stats = factory([ guards.stats ]);
 export const suave = factory([ guards.suave ]);
 export const nameDomain = factory([ guards.nameService, guards.clusters ]);

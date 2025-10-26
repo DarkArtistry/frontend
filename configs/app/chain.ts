@@ -33,21 +33,21 @@ const rpcUrls = (() => {
 })();
 
 const chain = Object.freeze({
-  id: getEnvValue('NEXT_PUBLIC_NETWORK_ID'),
-  name: getEnvValue('NEXT_PUBLIC_NETWORK_NAME'),
-  shortName: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME'),
+  id: getEnvValue('NEXT_PUBLIC_NETWORK_ID') || '135', // Fallback to ROAX chain ID
+  name: getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || 'ROAX',
+  shortName: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME') || 'ROAX',
   currency: {
-    name: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_NAME'),
+    name: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_NAME') || 'PLASMA',
     weiName: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_WEI_NAME'),
-    symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL'),
-    decimals: Number(getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS')) || DEFAULT_CURRENCY_DECIMALS,
+    symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL') || 'PLASMA',
+    decimals: Number(getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS')) || 18,
   },
   secondaryCoin: {
     symbol: getEnvValue('NEXT_PUBLIC_NETWORK_SECONDARY_COIN_SYMBOL'),
   },
   hasMultipleGasCurrencies: getEnvValue('NEXT_PUBLIC_NETWORK_MULTIPLE_GAS_CURRENCIES') === 'true',
   tokenStandard: getEnvValue('NEXT_PUBLIC_NETWORK_TOKEN_STANDARD_NAME') || 'ERC',
-  rpcUrls,
+  rpcUrls: rpcUrls.length > 0 ? rpcUrls : ['https://devrpc.roax.network'], // Fallback RPC URL
   isTestnet: getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true',
   verificationType,
 });

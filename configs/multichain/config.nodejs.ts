@@ -4,8 +4,8 @@ let value: MultichainConfig | undefined = undefined;
 
 function readFileConfig() {
   // eslint-disable-next-line no-restricted-properties
-  if (process.env.NEXT_RUNTIME !== 'nodejs') {
-    throw new Error('NEXT_RUNTIME is not nodejs');
+  if (typeof window !== 'undefined' || process.env.NEXT_RUNTIME !== 'nodejs') {
+    return undefined;
   }
 
   try {

@@ -11,10 +11,15 @@ export default function getResourceParams(resourceFullName: ResourceName, chain?
 
   const apiConfig = (() => {
     if (chain) {
-      return chain.config.apis[apiName];
+      return chain.config.apis[apiName] || chain.config.apis.general;
     }
 
-    return config.apis[apiName];
+    // For validators API, use the general API configuration
+    if (apiName === 'validators' && !config.apis[apiName]) {
+      return config.apis.general;
+    }
+
+    return config.apis[apiName] || config.apis.general;
   })();
 
   if (!apiConfig) {

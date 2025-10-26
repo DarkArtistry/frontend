@@ -37,11 +37,16 @@ const siteUrl = [
 ].filter(Boolean).join('');
 
 const apiUrl = (() => {
+  // Use internal Docker network addresses for server-side execution (sitemap generation)
+  // Falls back to external addresses for browser-side execution
+  const host = process.env.API_HOST_INTERNAL || process.env.NEXT_PUBLIC_API_HOST;
+  const port = process.env.API_PORT_INTERNAL || process.env.NEXT_PUBLIC_API_PORT;
+
   const baseUrl = [
     process.env.NEXT_PUBLIC_API_PROTOCOL || 'https',
     '://',
-    process.env.NEXT_PUBLIC_API_HOST,
-    process.env.NEXT_PUBLIC_API_PORT && ':' + process.env.NEXT_PUBLIC_API_PORT,
+    host,
+    port && ':' + port,
   ].filter(Boolean).join('');
 
   const basePath = stripTrailingSlash(process.env.NEXT_PUBLIC_API_BASE_PATH || '');

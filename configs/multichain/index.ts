@@ -1,7 +1,6 @@
 import type { MultichainConfig } from 'types/multichain';
 
 import config from 'configs/app';
-import * as multichainConfigNodejs from 'configs/multichain/config.nodejs';
 import { isBrowser } from 'toolkit/utils/isBrowser';
 
 const multichainConfig: () => MultichainConfig | undefined = () => {
@@ -13,6 +12,8 @@ const multichainConfig: () => MultichainConfig | undefined = () => {
     return window.__multichainConfig;
   }
 
+  // Dynamic import only in Node.js environment
+  const multichainConfigNodejs = require('configs/multichain/config.nodejs');
   return multichainConfigNodejs.getValue();
 };
 

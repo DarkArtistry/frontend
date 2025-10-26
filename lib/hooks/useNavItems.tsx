@@ -320,6 +320,11 @@ export default function useNavItems(): ReturnType {
         nextRoute: { pathname: '/gas-tracker' as const },
         isActive: pathname.startsWith('/gas-tracker'),
       },
+      config.features.contractEditor.isEnabled && {
+        text: 'Build & Deploy Contract',
+        nextRoute: { pathname: '/contract-editor' as const },
+        isActive: pathname.startsWith('/contract-editor'),
+      },
       config.features.publicTagsSubmission.isEnabled && {
         text: 'Submit public tag',
         nextRoute: { pathname: '/public-tags/submit' as const },

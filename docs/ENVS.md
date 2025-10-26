@@ -417,6 +417,16 @@ This feature is **enabled by default**. To switch it off pass `NEXT_PUBLIC_GAS_T
 
 &nbsp;
 
+### Contract editor
+
+This feature enables a built-in Solidity contract editor and deployment interface.
+
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_CONTRACT_EDITOR_ENABLED | `boolean` | Set to true to enable "Build & Deploy Contract" feature in the app | - | `false` | `true` | v1.38.0+ |
+
+&nbsp;
+
 ### Advanced filter
 
 This feature is **enabled by default**. To switch it off pass `NEXT_PUBLIC_ADVANCED_FILTER_ENABLED=false`.
@@ -858,7 +868,7 @@ The feature enables the Validators page which provides detailed information abou
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
-| NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE | `'stability' \| 'blackfort' \| 'zilliqa'` | Chain type | Required | - | `'stability'` | v1.25.0+ |
+| NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE | `'stability' \| 'blackfort' \| 'zilliqa' \| 'beacon'` | Chain type | Required | - | `'stability'` | v1.25.0+ |
 
 &nbsp;
 

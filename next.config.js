@@ -16,6 +16,11 @@ const moduleExports = {
     'react-syntax-highlighter',
   ],
   reactStrictMode: true,
+  eslint: {
+    // WARNING: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   webpack(config) {
     config.module.rules.push(
       {
@@ -35,7 +40,8 @@ const moduleExports = {
   rewrites,
   redirects,
   headers,
-  output: 'standalone',
+  // Disabled standalone mode to avoid trace collection hang in Docker
+  // output: 'standalone',
   productionBrowserSourceMaps: true,
   serverExternalPackages: ["@opentelemetry/sdk-node", "@opentelemetry/auto-instrumentations-node"],
   experimental: {

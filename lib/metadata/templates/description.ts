@@ -20,6 +20,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/address/[hash]': 'View the account balance, transactions, and other data for %hash% on the %network_title%',
   '/verified-contracts': DEFAULT_TEMPLATE,
   '/contract-verification': DEFAULT_TEMPLATE,
+  '/contract-editor': DEFAULT_TEMPLATE,
   '/address/[hash]/contract-verification': 'View the account balance, transactions, and other data for %hash% on the %network_title%',
   '/tokens': DEFAULT_TEMPLATE,
   '/token/[hash]': '%hash%, balances and analytics on the %network_title%',

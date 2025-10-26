@@ -17,6 +17,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/address/[hash]': '%network_name% address details for %hash%',
   '/verified-contracts': 'Verified %network_name% contracts lookup - %network_name% explorer',
   '/contract-verification': '%network_name% verify contract',
+  '/contract-editor': '%network_name% contract editor - Build & Deploy',
   '/address/[hash]/contract-verification': '%network_name% contract verification for %hash%',
   '/tokens': 'Tokens list - %network_name% explorer',
   '/token/[hash]': '%network_name% token details',

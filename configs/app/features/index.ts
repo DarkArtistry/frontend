@@ -11,6 +11,7 @@ export { default as bridgedTokens } from './bridgedTokens';
 export { default as blockchainInteraction } from './blockchainInteraction';
 export { default as celo } from './celo';
 export { default as clusters } from './clusters';
+export { default as contractEditor } from './contractEditor';
 export { default as csvExport } from './csvExport';
 export { default as dataAvailability } from './dataAvailability';
 export { default as deFiDropdown } from './deFiDropdown';
